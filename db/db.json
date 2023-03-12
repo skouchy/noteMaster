@@ -1,0 +1,12 @@
+{
+    "dbObject": [
+        {
+            "title1": "Test Title",
+            "text1": "Test text"
+        },
+        {
+            "title2": "Title 2",
+            "text2": "text 2"
+        }
+    ]
+}
