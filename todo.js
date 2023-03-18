@@ -5,10 +5,8 @@
 // TODO: Add Middleware... app.use() urlencoded, .json, and .static('public')
 
 // TODO: 
-//Create Routes to serve index.html from server
-app.get('/', (req, res) => { 
-    res.sendFile(path.join(__dirname, './public/index.html'));
-});
+//Create Routes to serve html's from server
+
 
 
 // TODO: Finish Post functionality: 
@@ -24,5 +22,7 @@ function handleAnimalSubmit(example) {
 if (yes) { //API calls using 
     fetch()
 }
+
+// TODO: set up all front-end js code to make new get requests for /notes.html work
 
 //* test using insomnia!
