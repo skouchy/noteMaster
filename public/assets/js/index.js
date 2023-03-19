@@ -181,3 +181,41 @@ if (window.location.pathname === '/notes') {
 }
 
 getAndRenderNotes();
+
+// const getNotes = (notesData = {}) => {
+//   let notesObj = '/api/notes';
+
+//   Object.entries(notesData).forEach(([Title, text]) => {
+//     notesObj += `"${Title}"="${text}"`;
+//   });
+//   console.log(notesObj);
+
+//   fetch(notesObj), {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   };
+// };
+
+// const saveNote = newNote =>
+//   fetch('/api/notes', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(newNote)
+//   })
+//   .then(response => {
+//     if (response.ok) {
+//       return response.json();
+//     }
+//     alert(`Error: ${response.statusText}`);
+//   })
+//   .then(postResponse => {
+//     console.log(postResponse);
+//     alert('New note added!');
+//   })
+//   .catch(error => {
+//     console.log(`Error: ${error}`);
+//   });

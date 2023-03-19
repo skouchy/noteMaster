@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 // const { event } = require('util/types');
-const { notes } = require('./notes_db/db.json');
+const { notes } = require('./db/notes.json');
 // const { readFromFile, writeToFile, readAndAppend } = require('./helpers/fsUtils');
 
 const PORT = process.env.PORT || 3001;
