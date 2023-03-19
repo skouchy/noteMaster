@@ -21,10 +21,20 @@ app.use(express.json());
 app.use(express.static('public'));
 
 
-// function createNewNote(newNote, notes) {
-//     console.log(`dis just in: ${newNote}`);
-//     console.log(`a whole new array of notes... see? ${notes}`);
-//  };
+function createNewNote(newNote, notesArray) {
+    // console.log(`dis just in: ${newNote}`);
+    // console.log(`a whole new array of notes... see? ${notesArray}`);
+    const note = newNote;
+    notesArray.push(note);
+    fs.writeFileSync(
+        path.join(__dirname, './db/notes.json'),
+        JSON.stringify({ notes: notesArray }, null, 2)
+        );
+        console.log(newNote + "=" + note);
+        
+    // return finished code to post route for response
+    return note;
+ };
 // function validateNote(note) {};
 // function setTimeStampId(date){};
 
@@ -33,23 +43,23 @@ app.post('/api/notes', (req, res) => {
     const newNote = req.body;
 
     //     // set note id based on user input date & time
-    //     newNote.id = new Date();
-    //     console.log(newNote.id.toDateString());
-//     console.log(newNote.id.toTimeString().split(' ')[0]);
+        newNote.id = new Date();
+        console.log(newNote.id.toDateString());
+    console.log(newNote.id.toTimeString().split(' ')[0]);
 
 //  // Validating data in req.body, else will return 400 Status back
 // if(!validateNote(req.body)) {
     //     res.status(400).send('Status 400: Input Invalid');
     // } else {
         //     // add new note data to db.json file & notes array
-        // const note = createNewNote(newNote, notes);
-        res.json(newNote);
-        console.log(req.body);
+        const notesArray = createNewNote(newNote, notes);
+        res.json(notesArray);
+        console.log(notesArray);
     // }
 });
 
 app.get('/api/notes', (req, res) => {
-    let results = notes; // 'notes' origin:   const { notes } = require(./notes_db/db.json)
+    let results = notes; // 'notes' origin:   const { notes } = require(./db/notes.json)
     
     res.json(results);
 });
