@@ -109,6 +109,10 @@ const handleNewNoteView = (e) => {
 };
 
 const handleRenderSaveBtn = () => {
+  console.log("noteTitle.value.trim(), noteText.value.trim()");
+  console.log("noteTitle.value.trim(), noteText.value.trim()");
+  console.log("noteTitle.value.trim(), noteText.value.trim()");
+  console.log("title:", noteTitle.value.trim(),"Text", noteText.value.trim());
   if (!noteTitle.value.trim() || !noteText.value.trim()) {
     hide(saveNoteBtn);
   } else {
@@ -176,46 +180,8 @@ const getAndRenderNotes = () => getNotes().then(renderNoteList);
 if (window.location.pathname === '/notes') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
   newNoteBtn.addEventListener('click', handleNewNoteView);
-  noteTitle.addEventListener('keyup', handleRenderSaveBtn);
-  noteText.addEventListener('keyup', handleRenderSaveBtn);
+  noteTitle.addEventListener('onkeyup', handleRenderSaveBtn);
+  noteText.addEventListener('onkeyup', handleRenderSaveBtn);
 }
 
 getAndRenderNotes();
-
-// const getNotes = (notesData = {}) => {
-//   let notesObj = '/api/notes';
-
-//   Object.entries(notesData).forEach(([Title, text]) => {
-//     notesObj += `"${Title}"="${text}"`;
-//   });
-//   console.log(notesObj);
-
-//   fetch(notesObj), {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   };
-// };
-
-// const saveNote = newNote =>
-//   fetch('/api/notes', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(newNote)
-//   })
-//   .then(response => {
-//     if (response.ok) {
-//       return response.json();
-//     }
-//     alert(`Error: ${response.statusText}`);
-//   })
-//   .then(postResponse => {
-//     console.log(postResponse);
-//     alert('New note added!');
-//   })
-//   .catch(error => {
-//     console.log(`Error: ${error}`);
-//   });

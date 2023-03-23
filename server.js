@@ -1,15 +1,19 @@
 const express = require('express');
 const fs = require('fs');
+const notesData = require('./db/notes.json');
 const path = require('path');
+const { clog } = require('./middleware/clog');
 // const { event } = require('util/types');
-const { notes } = require('./db/notes.json');
 // const { readFromFile, writeToFile, readAndAppend } = require('./helpers/fsUtils');
 
 const PORT = process.env.PORT || 3001;
+
 const app = express();
 
+app.use(clog);
 
-// * Middleware *//
+
+// * ======================= Middleware ====================== * //
 
 // Looks into Objects for nested Objects within Objects
 app.use(express.urlencoded({ extended: true }));
@@ -20,66 +24,90 @@ app.use(express.json());
 // Connects embedded links/resources to associated HTML files within ./public/ Directory
 app.use(express.static('public'));
 
+// * =========================================================== *
 
-function createNewNote(newNote, notesArray) {
-    // console.log(`dis just in: ${newNote}`);
-    // console.log(`a whole new array of notes... see? ${notesArray}`);
-    const note = newNote;
-    notesArray.push(note);
+function createNewNote(newNote) {
+    console.log(`dis just in: ${newNote}`);
+    // console.log(`a whole new array of notes... see? ${notesObj}`);
+    // const notes = notesData;
+
+    // const notes = [];
+    // notes.push(newNote);
+    // add new note data to notes.json file & notes array
+    notesData.push(newNote);
     fs.writeFileSync(
         path.join(__dirname, './db/notes.json'),
-        JSON.stringify({ notes: notesArray }, null, 2)
-        );
-        console.log(newNote + "=" + note);
-        
+        JSON.stringify(notesData, null, 2)
+    );
+
     // return finished code to post route for response
-    return note;
- };
-// function validateNote(note) {};
-// function setTimeStampId(date){};
+    return notesData;
+};
+
+function validateNote(newNote) {
+    console.log('all we need is VALIDATION');
+    if (!newNote.title || typeof newNote.title !== 'string') {
+        return false;
+    }
+    if (!newNote.text || typeof newNote.text !== 'string') {
+        return false;
+    }
+    return true;
+
+
+
+    // res.json(notesObj);
+    // console.log(notesObj);
+    // renderActiveNote(notesObj);
+};
+
+// function setTimeStampId(newNote) {
+//     console.log(newNote);
+//     // set note id based on user input date & time
+//     newNote.id = new Date();
+//     // const formatNewId = newNote.id.toDateString();
+//     // formatNewId = newNote.id.toTimeString().split(' ')[0];
+//     console.log(newNote.id);
+//     return newNote.id;
+// };
+
+// * ======================== API ROUTES ======================== *
+
+app.get('/api/notes', (req, res) => res.json(notesData));
 
 app.post('/api/notes', (req, res) => {
-//     // req.body is the object returning incoming data
+    // req.body is the object returning incoming data
     const newNote = req.body;
-
-    //     // set note id based on user input date & time
-        newNote.id = new Date();
-        console.log(newNote.id.toDateString());
-    console.log(newNote.id.toTimeString().split(' ')[0]);
-
-//  // Validating data in req.body, else will return 400 Status back
-// if(!validateNote(req.body)) {
-    //     res.status(400).send('Status 400: Input Invalid');
-    // } else {
-        //     // add new note data to db.json file & notes array
-        const notesArray = createNewNote(newNote, notes);
-        res.json(notesArray);
-        console.log(notesArray);
-    // }
+    // setTimeStampId(newNote);
+    // Validating data in req.body, else will return 400 Status back
+    if (!validateNote(newNote)) {
+        res.status(400).send('Status 400: Input Invalid');
+    } else {
+        const note = createNewNote(newNote);
+        res.json(note);
+    }
 });
 
-app.get('/api/notes', (req, res) => {
-    let results = notes; // 'notes' origin:   const { notes } = require(./db/notes.json)
-    
-    res.json(results);
-});
 
-// Get client-side response from index.html
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'));
-});
+// * ======================= HTML ROUTES ======================== *
+
+// // Get client-side response from index.html
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, './public/index.html'));
+// });
 
 // GET client-side response data from notes.html
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
 })
 
-// Wildcard route established in case of inaccurate client requested end-point
+// Wildcard route & included homepage route established in case of inaccurate client requested end-point
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
+
+// * ===================== PORT LISTENER ===================== *
+
 // Method called for application's server to begin 'listening' for requests
-app.listen(PORT, () => {
-    console.log(`API server now on port ${PORT}!`);
-});
+app.listen(PORT, () => console.log(`app now on port ${PORT}!`));
