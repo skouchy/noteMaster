@@ -73,20 +73,52 @@ function validateNote(newNote) {
 
 // * ======================== API ROUTES ======================== *
 
-app.get('/api/notes', (req, res) => res.json(notesData));
+app.get('/api/notes', (req, res) => {
+    fs.readFileSync('./db/notes.json', (error, data) => {
+        if (error) {
+            throw error;
+        } else {
+            let notes = [];
+            if (data) {
+                notes = JSON.parse(data);
+            }
+            return res.json(notes);
+        }
+    });
+});
 
 app.post('/api/notes', (req, res) => {
-    // req.body is the object returning incoming data
-    const newNote = req.body;
-    // setTimeStampId(newNote);
-    // Validating data in req.body, else will return 400 Status back
-    if (!validateNote(newNote)) {
-        res.status(400).send('Status 400: Input Invalid');
-    } else {
-        const note = createNewNote(newNote);
-        res.json(note);
+    // if (error) {
+    //     throw error;
+    // } else {
+    // let notes = [];
+    // if (notesData) {
+    // notes = JSON.parse(notesData);
+    // }
+    let note = req.body;
+    notesData.push(note);
+    note.id = notesData.length.toString();
+    fs.writeFileSync(
+        path.join(__dirname, './db/notes.json'), JSON.stringify(notesData, null, 2), (error) => {
+            if (error) {
+                throw error;
+            }
+        }
+        );
+        console.log("notesData: ", notesData);
+        res.json(notesData);
     }
-});
+    // req.body is the object returning incoming data
+    // const newNote = req.body;
+    // // setTimeStampId(newNote);
+    // // Validating data in req.body, else will return 400 Status back
+    // if (!validateNote(newNote)) {
+    //     res.status(400).send('Status 400: Input Invalid');
+    // } else {
+    //     const note = createNewNote(newNote);
+    //     res.json(note);
+    // }
+);
 
 
 // * ======================= HTML ROUTES ======================== *

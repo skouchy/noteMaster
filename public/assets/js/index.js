@@ -109,10 +109,10 @@ const handleNewNoteView = (e) => {
 };
 
 const handleRenderSaveBtn = () => {
-  console.log("noteTitle.value.trim(), noteText.value.trim()");
-  console.log("noteTitle.value.trim(), noteText.value.trim()");
-  console.log("noteTitle.value.trim(), noteText.value.trim()");
-  console.log("title:", noteTitle.value.trim(),"Text", noteText.value.trim());
+  console.log('this is title and text');
+  console.log('this is title and text');
+  console.log(noteTitle.value.trim());
+  console.log(noteText.value.trim());
   if (!noteTitle.value.trim() || !noteText.value.trim()) {
     hide(saveNoteBtn);
   } else {
@@ -180,8 +180,8 @@ const getAndRenderNotes = () => getNotes().then(renderNoteList);
 if (window.location.pathname === '/notes') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
   newNoteBtn.addEventListener('click', handleNewNoteView);
-  noteTitle.addEventListener('onkeyup', handleRenderSaveBtn);
-  noteText.addEventListener('onkeyup', handleRenderSaveBtn);
+  noteTitle.addEventListener('keyup', handleRenderSaveBtn);
+  noteText.addEventListener('keyup', handleRenderSaveBtn);
 }
 
 getAndRenderNotes();
