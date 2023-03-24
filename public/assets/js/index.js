@@ -109,10 +109,6 @@ const handleNewNoteView = (e) => {
 };
 
 const handleRenderSaveBtn = () => {
-  console.log('this is title and text');
-  console.log('this is title and text');
-  console.log(noteTitle.value.trim());
-  console.log(noteText.value.trim());
   if (!noteTitle.value.trim() || !noteText.value.trim()) {
     hide(saveNoteBtn);
   } else {

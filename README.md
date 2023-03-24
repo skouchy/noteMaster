@@ -2,7 +2,7 @@
 Personal Note Hub
 
 ## Description
-A simply designed website that acts as a hub for writing personal notes that the user is able to come back to, view, and delete.
+A simply designed website that acts as a hub for writing personal notes that the user is able to come back to and view.
 
 ## Built With
 * HTML
