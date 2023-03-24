@@ -1,37 +1,27 @@
 [
   {
-    "title": "dfg",
-    "text": "fghfh",
+    "title": "Submit Assignment",
+    "text": "Challenge 11 - *LATE*",
     "id": "1"
   },
   {
-    "title": "gdgfd",
-    "text": "fghfgh",
+    "title": "README",
+    "text": "Take Screenshot",
     "id": "2"
   },
   {
-    "title": "First Note?",
-    "text": "*Fingers Crossed...",
+    "title": "Deploy GH",
+    "text": "Deploy to GitHub",
     "id": "3"
   },
   {
-    "title": "Light Mode",
-    "text": "Do they really not render??\n",
+    "title": "Deploy Heroku",
+    "text": "Find directions that I can follow despite my previous one-time experience",
     "id": "4"
   },
   {
-    "title": "gfd",
-    "text": "gfdgfd",
+    "title": "Spin",
+    "text": "Up\n\n\n\n\n...then\n\nDown",
     "id": "5"
-  },
-  {
-    "title": "Hello",
-    "text": "George",
-    "id": "6"
-  },
-  {
-    "title": "NEW NOTE",
-    "text": "IT'S POSTINNGGGG\n",
-    "id": "7"
   }
 ]

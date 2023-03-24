@@ -1,18 +1,17 @@
 const express = require('express');
 const fs = require('fs');
-const notesData = require('./db/notes.json');
 const path = require('path');
-const { clog } = require('./middleware/clog');
-// const { event } = require('util/types');
-// const { readFromFile, writeToFile, readAndAppend } = require('./helpers/fsUtils');
+
+const notesData = require('./db/notes.json');
+const { clog } = require('./middleware/clog'); // helpful server-side terminal logging aid
+const app = express();
 
 const PORT = process.env.PORT || 3001;
 
-const app = express();
-
-app.use(clog);
 
 // * ======================= Middleware ====================== * //
+
+app.use(clog);
 
 // Looks into Objects for nested Objects within Objects
 app.use(express.urlencoded({ extended: true }));
@@ -22,9 +21,6 @@ app.use(express.json());
 
 // Connects embedded links/resources to associated HTML files within ./public/ Directory
 app.use(express.static('public'));
-
-// * =========================================================== *
-
 
 
 // * ======================== API ROUTES ======================== *
